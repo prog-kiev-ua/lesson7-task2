@@ -17,7 +17,6 @@ public class Provider implements Runnable {
     public void run() {
         int sizeBlock = (int) (file.length() / 100);
         try (FileInputStream inputStream = new FileInputStream(file)) {
-            int readed = 0;
             boolean lastBlock = false;
             for (int i = 1; i <= 100; i++) {
                 byte[] block;
@@ -27,7 +26,6 @@ public class Provider implements Runnable {
                 } else {
                     block = inputStream.readNBytes(sizeBlock);
                 }
-                readed = readed + block.length;
                 serviceCopy.setBlock(block, i, lastBlock);
             }
         } catch (IOException e) {
